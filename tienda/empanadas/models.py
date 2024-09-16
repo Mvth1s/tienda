@@ -21,3 +21,16 @@ class Empanada(models.Model):
     #version python du toString(), utilisee par django dans ses interfaces
     def __str__(self) :
         return 'empanada '+self.nomEmpanada+' (prix:'+str(self.prix)+'€)'
+
+class Composition(models.Model):
+    class Meta:
+        unique_together = ('ingredient','empanada')
+    idComposition = models.AutoField(primary_key=True)
+    ingredient = models.ForeignKey(Ingredient, on_delete=models.CASCADE)
+    empanada = models.ForeignKey(Empanada, on_delete=models.CASCADE)
+    quantite = models.CharField(max_length=100)
+    def __str__(self):
+        res = self.ingredient.nomIngredient+' fait partie de la empanada'\
+            +' "'+self.empanada.nomEmpanada+'"'\
+            +' (quantité: '+self.quantite+')'
+        return res
