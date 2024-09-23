@@ -17,10 +17,10 @@ class Empanada(models.Model):
     #chaine de caractere de taille bornee
     nomEmpanada = models.CharField(max_length=50)
     #nombre decima, max 6 chiffres dont 2 apres la virgule
-    prix = models.DecimalField(max_digits=6, decimal_places=2,)
+    prix = models.DecimalField(max_digits=6, decimal_places=2)
     #version python du toString(), utilisee par django dans ses interfaces
     def __str__(self) :
-        return 'empanada '+self.nomEmpanada+' (prix:'+str(self.prix)+'€)'
+        return 'empanada ' + self.nomEmpanada + ' (prix:' + str(self.prix) + '€)'
 
 class Composition(models.Model):
     class Meta:
@@ -30,7 +30,7 @@ class Composition(models.Model):
     empanada = models.ForeignKey(Empanada, on_delete=models.CASCADE)
     quantite = models.CharField(max_length=100)
     def __str__(self):
-        res = self.ingredient.nomIngredient+' fait partie de la empanada'\
-            +' "'+self.empanada.nomEmpanada+'"'\
-            +' (quantité: '+self.quantite+')'
+        res = self.ingredient.nomIngredient + ' fait partie de la empanada'\
+            + ' "' + self.empanada.nomEmpanada + '"'\
+            + ' (quantité: ' + self.quantite + ')'
         return res
