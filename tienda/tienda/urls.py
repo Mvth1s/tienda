@@ -5,4 +5,5 @@ from empanadas import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('empanadas/', views.empanadas),
+    path('ingredients/', views.ingredients)
 ]
