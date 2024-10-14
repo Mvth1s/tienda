@@ -1,19 +1,22 @@
-/* Styles pour le sticky footer */
+body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+main {
+    flex: 1;
+}
+
 footer {
-    background-color: #333;
-    color: white;
+    padding: 15px 0;
+    margin: 0;
+    padding: 0;
     text-align: center;
-    padding: 1rem;
 }
 
-/* Styles pour la navbar */
-.navbar {
-    background-color: #007BFF; /* Exemple de couleur de fond de la navbar */
-    color: white;
-    padding: 1rem;
-}
-
-/* Option pour changer la couleur de la navbar au survol */
-.navbar:hover {
-    background-color: #0056b3;
+/* Permet de changer la couleur de la navbar */
+.bg-success,
+.container-fluid {
+    background-color: rgb(192, 186, 82) !important;
 }
