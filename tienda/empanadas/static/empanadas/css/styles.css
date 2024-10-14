@@ -1,0 +1,19 @@
+/* Styles pour le sticky footer */
+footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem;
+}
+
+/* Styles pour la navbar */
+.navbar {
+    background-color: #007BFF; /* Exemple de couleur de fond de la navbar */
+    color: white;
+    padding: 1rem;
+}
+
+/* Option pour changer la couleur de la navbar au survol */
+.navbar:hover {
+    background-color: #0056b3;
+}
