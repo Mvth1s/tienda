@@ -1,0 +1,18 @@
+{% extends 'empanadas/base.html' %}
+
+{% block title %} Détail d'une empanada {% endblock %}
+
+{% block main %}
+    <h2>{{ empanada }}</h2>
+
+    <table class="table table-striped">
+        <tbody>
+            {% for ingredient in ingredients %}
+            <tr>
+                <td>{{ ingredient.quantite }}</td>
+                <td>{{ ingredient.nomIngredient }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -3,7 +3,7 @@
 <h2>Voici nos {{empanadas|length}} empanadas</h2>
 <ul>
     {% for emp in empanadas %}
-    <li>{{emp}}</li>
+    <li>{{emp}} | <a href="/empanada/{{emp.idEmpanada}}">détails</a></li>
     {% endfor %}
 </ul>
 {% endblock %}
