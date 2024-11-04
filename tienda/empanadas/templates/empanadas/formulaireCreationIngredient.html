@@ -6,23 +6,6 @@
 <h2>Création d'un ingrédient</h2>
 <form action="/ingredients/create/" method="post">
     {% csrf_token %}
-
-    {% if form.errors %}
-        <div class="alert alert-danger">
-            <strong>Erreur dans le formulaire :</strong>
-            <ul>
-                {% for field in form %}
-                    {% for error in field.errors %}
-                        <li>{{ error }}</li>
-                    {% endfor %}
-                {% endfor %}
-                {% for error in form.non_field_errors %}
-                    <li>{{ error }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    {% endif %}
-
     
     <div class="m-3">
         <label for="id_nomIngredient" class="form-label"

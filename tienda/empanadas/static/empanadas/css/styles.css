@@ -20,3 +20,12 @@ footer {
 .container-fluid {
     background-color: rgb(192, 186, 82) !important;
 }
+
+.table {
+    max-width: 800px;
+    margin: 0 auto;
+    border-top: 1px solid black;
+}
+.table td {
+    width: 50%;
+}

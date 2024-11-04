@@ -1,9 +1,10 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from empanadas.models import Empanada
 from empanadas.models import Ingredient
 from empanadas.models import Composition
 from empanadas.forms import IngredientForm
 from empanadas.forms import EmpanadaForm
+from empanadas.forms import CompositionForm
 
 
 def empanadas(request):
@@ -23,7 +24,7 @@ def ingredients(request):
     )
     
 def empanada(request, empanada_id):
-    # Récupérer la empanada spécifique
+    # Récupérer l'empanada spécifique
     laEmpanada = Empanada.objects.get(idEmpanada=empanada_id)
     
     # Récupérer la composition associée (les ingrédients et leurs quantités)
@@ -39,15 +40,24 @@ def empanada(request, empanada_id):
         }
         ingredients_list.append(ingredient_data)
     
-    # Passer l'empanada et la liste des ingrédients au template
+    # Récupérer tous les ingrédients pour le formulaire de sélection
+    all_ingredients = Ingredient.objects.all()
+    
+    # Créer une instance du formulaire CompositionForm
+    form = CompositionForm()
+    
+    # Passer l'empanada, la liste des ingrédients et le formulaire au template
     return render(
         request,
         'empanadas/empanada.html',
         {
             'empanada': laEmpanada,
-            'ingredients': ingredients_list
+            'ingredients': ingredients_list,
+            'all_ingredients': all_ingredients,
+            'form': form  # Passer le formulaire au template
         }
     )
+
     
 def creerIngredient(request):
     form = IngredientForm(request.POST)
@@ -88,3 +98,35 @@ def formulaireCreationEmpanada(request):
         request,
         'empanadas/formulaireCreationEmpanada.html'
     )
+    
+def ajouterIngredientDsEmpanada(request, empanada_id):
+    form = CompositionForm(request.POST)
+    if form.is_valid():
+        ingr = form.cleaned_data['ingredient']
+        qt = form.cleaned_data['quantite']
+
+        # Vérifiez si l'ingrédient est déjà présent dans l'empanada
+        ligne_existante = Composition.objects.filter(
+            empanada_id=empanada_id,
+            ingredient=ingr
+        ).first()  # Utilisez .first() pour obtenir l'instance ou None
+
+        if ligne_existante:  # Si l'ingrédient existe déjà
+            ligne_existante.quantite += qt  # Mettez à jour la quantité
+            ligne_existante.save()  # Sauvegardez les modifications
+        else:
+            # Créez une nouvelle ligne pour la composition
+            ligne = Composition()
+            ligne.ingredient = ingr
+            ligne.empanada_id = empanada_id  # Associez à l'empanada par son ID
+            ligne.quantite = qt
+            ligne.save()  # Sauvegardez la nouvelle ligne
+
+        return redirect('/empanada/%d/' % empanada_id)  # Redirigez vers la page de détail de l'empanada
+
+    else:
+        return render(
+            request,
+            'empanadas/formulaireNonValide.html',
+            {'erreurs': form.errors},
+        )

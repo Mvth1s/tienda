@@ -3,22 +3,53 @@
 {% block title %} Détail d'une empanada {% endblock %}
 
 {% block main %}
-    <h2>{{ empanada }}</h2>
+<h2>{{ empanada }}</h2>
 
-    <table class="table table-striped">
-        <tbody>
-            {% if ingredients %}
-                {% for ingredient in ingredients %}
-                <tr>
-                    <td>{{ ingredient.quantite }}</td>
-                    <td>{{ ingredient.nomIngredient }}</td>
-                </tr>
-                {% endfor %}
-            {% else %}
-                <tr>
-                    <td colspan="2">Ingrédient non renseigné pour cet empanada.</td>
-                </tr>
-            {% endif %}
-        </tbody>
-    </table>
+<table class="table table-striped">
+    <tbody>
+        {% if ingredients %} {% for ingredient in ingredients %}
+        <tr>
+            <td>{{ ingredient.nomIngredient }}</td>
+            <td>{{ ingredient.quantite }}</td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr>
+            <td colspan="2">Ingrédient non renseigné pour cet empanada.</td>
+        </tr>
+        {% endif %}
+    </tbody>
+</table>
+
+<h2>Ajouter une ingrédient à la recette</h2>
+<form action="/empanada/{{empanada.idEmpanada}}/addIngredient" method="post">
+    {% csrf_token %}
+    <div class="m-3">
+        <label for="id_ingredient" class="form-label">Ingrédient</label>
+        <select
+            id="id_ingredient"
+            name="ingredient"
+            class="form-select"
+            required
+        >
+            <option selected disabled>Choisissez</option>
+            {% for ingr in all_ingredients %}
+            <option value="{{ ingr.idIngredient }}">
+                {{ ingr.nomIngredient }}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="m-3">
+        <label for="id_quantite" class="form-label">Quantité</label>
+        <input
+            id="id_quantite"
+            name="quantite"
+            type="text"
+            maxlength="100"
+            required
+            class="form-control"
+        />
+    </div>
+    <button type="submit" class="btn btn-primary">Envoyer</button>
+</form>
 {% endblock %}

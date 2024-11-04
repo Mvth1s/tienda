@@ -1,0 +1,34 @@
+{% extends 'empanadas/base.html' %}
+{% block title %}Erreur dans le formulaire{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1>Erreur dans le formulaire</h1>
+    
+    {% if form.errors %}
+        <div class="alert alert-danger">
+            <strong>Erreur dans le formulaire :</strong>
+            <ul>
+                {% for field in form %}
+                    {% if field.errors %}
+                        <li>{{ field.label }} :
+                            <ul>
+                                {% for error in field.errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                {% for error in form.non_field_errors %}
+                    <li>{{ error }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-info">Aucune erreur détectée.</div>
+    {% endif %}
+    
+    <a href="{% url 'votre_vue_de_formulaire' %}" class="btn btn-primary">Retourner au formulaire</a>
+</div>
+{% endblock %}
