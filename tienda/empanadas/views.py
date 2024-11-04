@@ -130,3 +130,59 @@ def ajouterIngredientDsEmpanada(request, empanada_id):
             'empanadas/formulaireNonValide.html',
             {'erreurs': form.errors},
         )
+        
+def supprimerEmpanada(request, empanada_id):
+    # Récupérer l'empanada à supprimer
+    empanada = Empanada.objects.get(idEmpanada = empanada_id)
+    # Supprimer l'empanada
+    empanada.delete()
+    # Redirection vers la liste des empanadas
+    return redirect('liste_empanadas')
+    
+def afficherFormulaireModificationEmpanada(request, empanada_id):
+    emp = Empanada.objects.get(idEmpanada = empanada_id)
+    return render(
+        request,
+        'empanadas/formulaireModificationEmpanada.html',
+        { 'empanada' : emp }
+    )
+    
+def modifierEmpanada(request, empanada_id):
+    emp = Empanada.objects.get(idEmpanada = empanada_id)
+    form = EmpanadaForm(request.POST, instance = emp)
+    if form.is_valid():
+        # Mettre à jour l'empanada dans la base de données
+        form.save()
+        # Rediriger vers la liste des empanadas
+        return redirect('liste_empanadas')
+    else:
+        # Le formulaire n'est pas valide, afficher les erreurs
+        return render(request, 'empanadas/formulaireModificationEmpanada.html', {'form': form, 'empanada': empanada})
+    
+def supprimerIngredient(request, ingredient_id):
+    # Récupérer l'ingredient à supprimer
+    ingredients = Ingredient.objects.get(idIngredient = ingredient_id)
+    # Supprimer l'ingredient
+    ingredients.delete()
+    # Redirection vers la liste des ingredients
+    return redirect('liste_ingredients')
+    
+def afficherFormulaireModificationIngredient(request, ingredient_id):
+    ing = Ingredient.objects.get(idIngredient = ingredient_id)
+    return render(
+        request,
+        'empanadas/formulaireModificationIngredient.html',
+        { 'ingredient' : ing }
+    )
+    
+def modifierIngredient(request, ingredient_id):
+    ing = Ingredient.objects.get(idIngredient = ingredient_id)
+    form = IngredientForm(request.POST, instance = ing)
+    if form.is_valid():
+        # Mettre à jour l'ingredient dans la base de données
+        form.save()
+        # Rediriger vers la liste des ingredient
+        return redirect('liste_ingredients')
+    else:
+        # Le formulaire n'est pas valide, afficher les erreurs
+        return render(request, 'empanadas/formulaireModificationIngredient.html', {'form': form, 'ingredient': ing})

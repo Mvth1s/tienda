@@ -1,9 +1,16 @@
-{% extends 'empanadas/base.html' %} {% block title %}les empanadas{% endblock %}
+{% extends 'empanadas/base.html' %}
+
+{% block title %}les empanadas{% endblock %}
+
 {% block main %}
 <h2>Voici nos {{empanadas|length}} empanadas</h2>
 <ul>
     {% for emp in empanadas %}
-    <li>{{emp}} | <a href="/empanada/{{emp.idEmpanada}}">détails</a></li>
+    <li>{{emp}}
+        | <a href="/empanada/{{emp.idEmpanada}}">détails</a>
+        | <a href="/empanada/{{emp.idEmpanada}}/update">modifier</a>
+        | <a href="/empanada/{{emp.idEmpanada}}/delete">supprimer</a>
+    </li>
     {% endfor %}
 </ul>
 {% endblock %}
