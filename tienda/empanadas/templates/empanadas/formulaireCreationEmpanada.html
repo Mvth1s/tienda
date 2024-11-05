@@ -1,5 +1,8 @@
-{% extends 'empanadas/base.html' %} {% block title %}création d'une empanada{%
-endblock %} {% block main %}
+{% extends 'empanadas/base.html' %}
+
+{% block title %}création d'une empanada{% endblock %}
+
+{% block main %}
 <h2>Création d'une empanada</h2>
 <form action="/empanadas/create/" method="post">
     {% csrf_token %}
