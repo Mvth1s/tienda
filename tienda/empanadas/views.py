@@ -186,3 +186,27 @@ def modifierIngredient(request, ingredient_id):
     else:
         # Le formulaire n'est pas valide, afficher les erreurs
         return render(request, 'empanadas/formulaireModificationIngredient.html', {'form': form, 'ingredient': ing})
+    
+def supprimerIngredientDansEmpanada(request, empanada_id, ligne_id):
+    # Récupérer la composition à supprimer
+        comp = Composition.objects.get(idComposition = ligne_id)
+        comp.delete()
+
+        # Récupérer l'empanada associée
+        emp = Empanada.objects.get(idEmpanada = empanada_id)
+
+        # Rediriger vers la page de détail de l'empanada
+        return redirect('detail_empanada', empanada_id = emp.idEmpanada)
+    
+def modifierIngredientDansEmpanada(request, empanada_id, ligne_id):
+    # Récupérer la composition à modifier
+        comp = Composition.objects.get(idComposition = ligne_id)
+        # Récupérer la nouvelle quantité depuis le formulaire
+        quantite = request.POST.get('quantite')
+        # Mettre à jour la quantité dans la composition
+        comp.quantite = quantite
+        comp.save()  # Enregistrez les modifications
+        # Récupérer l'empanada associée
+        emp = Empanada.objects.get(idEmpanada = empanada_id)
+        # Rediriger vers la page de détail de l'empanada
+        return redirect('detail_empanada', empanada_id = emp.idEmpanada)

@@ -7,21 +7,37 @@
 
 <table class="table table-striped">
     <tbody>
-        {% if ingredients %} {% for ingredient in ingredients %}
+        {% if ingredients %} {% for ligne in ingredients %}
         <tr>
-            <td>{{ ingredient.nomIngredient }}</td>
-            <td>{{ ingredient.quantite }}</td>
+            <td>{{ ligne.nomIngredient }}</td>
+            <td>
+                <form action="/empanada/{{ empanada.idEmpanada }}/updateIngredient/{{ ligne.idComposition }}/" method="post" class="d-inline">
+                    {% csrf_token %}
+                    <input type="text" name="quantite" value="{{ ligne.quantite }}" required class="form-control" style="width: 100px; display: inline;">
+                    <button type="submit" class="btn btn-sm btn-warning">Modifier</button>
+                </form>
+            </td>
+            <td>
+                <a
+                    href="/empanada/{{ empanada.idEmpanada }}/deleteIngredient/{{ ligne.idComposition }}"
+                    title="Supprimer cet ingrédient"
+                    class="text-danger"
+                >
+                    <i class="bi bi-trash"></i>
+                </a>
+            </td>
+            
         </tr>
         {% endfor %} {% else %}
         <tr>
-            <td colspan="2">Ingrédient non renseigné pour cet empanada.</td>
+            <td colspan="3">Ingrédient non renseigné pour cet empanada.</td>
         </tr>
         {% endif %}
     </tbody>
 </table>
 
-<h2>Ajouter une ingrédient à la recette</h2>
-<form action="/empanada/{{empanada.idEmpanada}}/addIngredient" method="post">
+<h2>Ajouter un ingrédient à la recette</h2>
+<form action="/empanada/{{ empanada.idEmpanada }}/addIngredient" method="post">
     {% csrf_token %}
     <div class="m-3">
         <label for="id_ingredient" class="form-label">Ingrédient</label>

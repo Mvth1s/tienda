@@ -6,7 +6,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('empanadas/', views.empanadas, name='liste_empanadas'),
     path('ingredients/', views.ingredients, name='liste_ingredients'),
-    path('empanada/<int:empanada_id>/', views.empanada),
+    path('empanada/<int:empanada_id>/', views.empanada, name='detail_empanada'),
     path('ingredients/add', views.formulaireCreationIngredient),
     path('ingredients/create/', views.creerIngredient),
     path('empanadas/add', views.formulaireCreationEmpanada),
@@ -18,4 +18,6 @@ urlpatterns = [
     path('ingredients/<int:ingredient_id>/delete/', views.supprimerIngredient),
     path('ingredients/<int:ingredient_id>/update/', views.afficherFormulaireModificationIngredient),
     path('ingredients/<int:ingredient_id>/updated/', views.modifierIngredient),
+    path('empanada/<int:empanada_id>/deleteIngredient/<int:ligne_id>/', views.supprimerIngredientDansEmpanada),
+    path('empanada/<int:empanada_id>/updateIngredient/<int:ligne_id>/', views.modifierIngredientDansEmpanada),
 ]
