@@ -71,6 +71,10 @@ def creerIngredient(request):
             'empanadas/traitementFormulaireCreationIngredient.html',
             {'nom' : nomIngr },
         )
+    else:
+        return render(
+            request, 'empanadas/formulaireNonValide.html',{'erreurs' : form.errors},
+        )
     
 def formulaireCreationIngredient(request):
     return render(
@@ -86,11 +90,16 @@ def creerEmpanada(request):
         emp = Empanada()
         emp.nomEmpanada = nomEmp
         emp.prix = prixEmp
+        emp.image = request.FILES['image']
         emp.save()
         return render(
             request,
             'empanadas/traitementFormulaireCreationEmpanada.html',
             {'nom' : nomEmp, 'prix' : prixEmp },
+        )
+    else:
+        return render(
+            request, 'empanadas/formulaireNonValide.html',{'erreurs' : form.errors},
         )
     
 def formulaireCreationEmpanada(request):
@@ -149,7 +158,7 @@ def afficherFormulaireModificationEmpanada(request, empanada_id):
     
 def modifierEmpanada(request, empanada_id):
     emp = Empanada.objects.get(idEmpanada = empanada_id)
-    form = EmpanadaForm(request.POST, instance = emp)
+    form = EmpanadaForm(request.POST, request.FILES, instance = emp)
     if form.is_valid():
         # Mettre à jour l'empanada dans la base de données
         form.save()
@@ -157,7 +166,11 @@ def modifierEmpanada(request, empanada_id):
         return redirect('liste_empanadas')
     else:
         # Le formulaire n'est pas valide, afficher les erreurs
-        return render(request, 'empanadas/formulaireModificationEmpanada.html', {'form': form, 'empanada': empanada})
+        return render(
+            request,
+            'empanadas/formulaireNonValide.html',
+            { 'erreurs': form.errors },
+        )
     
 def supprimerIngredient(request, ingredient_id):
     # Récupérer l'ingredient à supprimer

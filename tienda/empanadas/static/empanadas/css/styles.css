@@ -29,3 +29,35 @@ footer {
 .table td {
     width: 50%;
 }
+.table td:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.table a {
+    margin-right: 10px;
+}
+
+.table i {
+    font-size: 1.5em;
+}
+
+.card img {
+    max-height: 150px;
+    object-fit: contain;
+}
+
+.card {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+}
+
+h2 {
+    font-weight: bold;
+    color: rgb(100, 100, 100);
+}
+
+.img-fluid {
+    margin: auto;
+    display: flex;
+}

@@ -1,12 +1,25 @@
-{% extends 'empanadas/base.html' %} {% block title %}les ingredients{%endblock%}
+{% extends 'empanadas/base.html' %}
+
+{% block title %}Les ingrédients{% endblock%}
+
 {% block main %}
-<h2>Voici nos {{ingredients|length}} ingredients</h2>
-<ul>
-    {% for ing in ingredients %}
-    <li>{{ing}}
-        | <a href="/ingredients/{{ing.idIngredient}}/update">modifier</a>
-        | <a href="/ingredients/{{ing.idIngredient}}/delete">supprimer</a>
-    </li>
-    {% endfor %}
-</ul>
+<h2>Voici nos {{ ingredients|length }} ingrédients</h2>
+<table class="table table-striped">
+    <tbody>
+        {% for ing in ingredients %}
+        <tr>
+            <td>{{ ing }}</td>
+            <td></td>
+            <td>
+                <a href="/ingredients/{{ ing.idIngredient }}/update"
+                    ><i class="bi bi-pencil-square"></i
+                ></a>
+                <a href="/ingredients/{{ ing.idIngredient }}/delete"
+                    ><i class="bi bi-trash"></i
+                ></a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
 {% endblock %}

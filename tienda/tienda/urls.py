@@ -1,3 +1,5 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 from empanadas import views
@@ -21,3 +23,5 @@ urlpatterns = [
     path('empanada/<int:empanada_id>/deleteIngredient/<int:ligne_id>/', views.supprimerIngredientDansEmpanada),
     path('empanada/<int:empanada_id>/updateIngredient/<int:ligne_id>/', views.modifierIngredientDansEmpanada),
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)

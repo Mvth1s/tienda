@@ -4,7 +4,7 @@
 
 {% block main %}
 <h2>{{ empanada }}</h2>
-
+<img src="{{MEDIA_URL}}{{empanada.image}}" class="img-fluid" />
 <table class="table table-striped">
     <tbody>
         {% if ingredients %} {% for ligne in ingredients %}
@@ -21,7 +21,7 @@
                 <a
                     href="/empanada/{{ empanada.idEmpanada }}/deleteIngredient/{{ ligne.idComposition }}"
                     title="Supprimer cet ingrédient"
-                    class="text-danger"
+                    class="me-2"
                 >
                     <i class="bi bi-trash"></i>
                 </a>
@@ -35,7 +35,7 @@
         {% endif %}
     </tbody>
 </table>
-
+<br>
 <h2>Ajouter un ingrédient à la recette</h2>
 <form action="/empanada/{{ empanada.idEmpanada }}/addIngredient" method="post">
     {% csrf_token %}

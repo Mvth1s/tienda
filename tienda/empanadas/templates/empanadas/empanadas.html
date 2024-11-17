@@ -1,16 +1,33 @@
 {% extends 'empanadas/base.html' %}
 
-{% block title %}les empanadas{% endblock %}
+{% block title %}Les empanadas{% endblock %}
 
 {% block main %}
-<h2>Voici nos {{empanadas|length}} empanadas</h2>
-<ul>
-    {% for emp in empanadas %}
-    <li>{{emp}}
-        | <a href="/empanada/{{emp.idEmpanada}}">détails</a>
-        | <a href="/empanada/{{emp.idEmpanada}}/update">modifier</a>
-        | <a href="/empanada/{{emp.idEmpanada}}/delete">supprimer</a>
-    </li>
-    {% endfor %}
-</ul>
+<h2 class="text-center mt-4">Voici nos {{ empanadas|length }} empanadas</h2>
+<div class="container">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4 mt-4">
+        {% for emp in empanadas %}
+        <div class="col">
+            <div class="card h-100">
+                <img src="{{ MEDIA_URL }}{{ emp.image }}" class="card-img-top" alt="Image de {{ emp.nom }}">
+                <div class="card-body text-center">
+                    <h5 class="card-title">{{ emp }}</h5>
+                    <p class="card-text">Prix : {{ emp.prix|floatformat:2 }}€</p>
+                    <div class="d-flex justify-content-center gap-2">
+                        <a href="/empanada/{{ emp.idEmpanada }}" class="btn btn-info btn-sm" title="Détails">
+                            <i class="bi bi-info-circle"></i>
+                        </a>
+                        <a href="/empanada/{{ emp.idEmpanada }}/update" class="btn btn-warning btn-sm" title="Modifier">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a href="/empanada/{{ emp.idEmpanada }}/delete" class="btn btn-danger btn-sm" title="Supprimer">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
