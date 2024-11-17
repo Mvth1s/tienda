@@ -45,11 +45,20 @@ footer {
 .card img {
     max-height: 150px;
     object-fit: contain;
+    margin: 5%;
+    border-radius: 5%;
 }
 
 .card {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     border-radius: 10px;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    background-color: rgb(192, 186, 82);
+    color: black;
 }
 
 h2 {
@@ -60,4 +69,8 @@ h2 {
 .img-fluid {
     margin: auto;
     display: flex;
+}
+
+footer{
+    background-color: #858585;
 }
