@@ -1,7 +1,7 @@
 {% load static %}
 <nav class="navbar navbar-expand-lg navbar-dark bg-success">
     <div class="container-fluid">
-        <a class="navbar-brand" href="#"
+        <a class="navbar-brand" href="/empanadas"
             ><img
                 src="{% static 'empanadas/img/empanadas.webp' %}"
                 height="50em"
@@ -25,18 +25,13 @@
                 <li class="nav-item">
                     <a class="nav-link" href="/empanadas">les empanadas</a>
                 </li>
+            </ul>
+            <ul class="navbar-nav">
                 <li class="nav-item">
-                    <a class="nav-link" href="/empanadas/add"
-                        >créer un empanada</a
-                    >
+                    <a class="nav-link" href="/register"> inscription </a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="/ingredients">les ingrédients</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="/ingredients/add"
-                        >créer un ingrédient</a
-                    >
+                    <a class="nav-link" href="/login"> connexion </a>
                 </li>
             </ul>
         </div>
