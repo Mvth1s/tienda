@@ -1,0 +1,38 @@
+{% extends 'empanadas/base.html' %}
+
+{% block title %}connexion{% endblock %}
+
+{% block main %}
+<form id="form_login" method="post" action="/connexion/">
+    {% csrf_token %}
+    <div class="m-3">
+        <label for="id_username" class="form-label">identifiant</label>
+        <input
+            id="id_username"
+            type="text"
+            name="username"
+            class="form-control"
+        />
+    </div>
+    <div class="m-3">
+        <label for="id_password" class="form-label">mot de passe</label>
+        <input
+            id="id_password"
+            type="password"
+            name="password"
+            class="form-control"
+        />
+    </div>
+    <button type="submit" class="btn btn-primary">se connecter</button>
+</form>
+<div>
+    <p>
+        Pas encore inscit ?
+        <a href="/register">s'inscrire</a>
+    </p>
+    <p>
+        Mot de passe oublié ?
+        <a href="/password_reset">Changer le mot de passe</a>
+    </p>
+</div>
+{% endblock %}

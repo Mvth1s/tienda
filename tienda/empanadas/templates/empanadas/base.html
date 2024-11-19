@@ -19,7 +19,15 @@
         />
     </head>
     <body>
-        <header>{% include 'comptes/menu.html' %}</header>
+        <header>
+            {% if user.is_staff %}
+            {% include 'comptes/menuStaff.html' %}
+            {% elif user.is_authenticated %}
+            {% include 'comptes/menuClient.html' %}
+            {% else %}
+            {% include 'comptes/menuNonConnecte.html' %}
+            {% endif %}
+        </header>
         <main>{% block main %}{% endblock %}</main>
         <footer>{% include 'empanadas/footer.html' %}</footer>
         <script
