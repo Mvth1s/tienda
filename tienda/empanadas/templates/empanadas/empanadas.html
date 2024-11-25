@@ -17,12 +17,18 @@
                         <a href="/empanada/{{ emp.idEmpanada }}" class="btn btn-info btn-sm" title="Détails">
                             <i class="bi bi-info-circle"></i>
                         </a>
+                        {% if user.is_staff %}
                         <a href="/empanada/{{ emp.idEmpanada }}/update" class="btn btn-warning btn-sm" title="Modifier">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <a href="/empanada/{{ emp.idEmpanada }}/delete" class="btn btn-danger btn-sm" title="Supprimer">
                             <i class="bi bi-trash"></i>
                         </a>
+                        {% elif user.is_authenticated %}
+                        <a href="/empanada/{{ emp.idEmpanada }}/add_to_cart" class="btn btn-success btn-sm" title="Acheter">
+                            <i class="bi bi-cart-plus"></i>
+                        </a>
+                        {% endif %}
                     </div>
                 </div>
             </div>

@@ -4,68 +4,55 @@
 
 {% block main %}
 <h2>{{ empanada }}</h2>
-<img src="{{MEDIA_URL}}{{empanada.image}}" class="img-fluid" />
+<img src="{{ MEDIA_URL }}{{ empanada.image }}" class="img-fluid" />
 <table class="table table-striped">
     <tbody>
-        {% if ingredients %} {% for ligne in ingredients %}
+        {% if ingredients %}
+        {% for ligne in ingredients %}
         <tr>
+            {% if user.is_staff %}
             <td>{{ ligne.nomIngredient }}</td>
+            <td>{{ ligne.quantite }}</td>
             <td>
-                <form action="/empanada/{{ empanada.idEmpanada }}/updateIngredient/{{ ligne.idComposition }}/" method="post" class="d-inline">
-                    {% csrf_token %}
-                    <input type="text" name="quantite" value="{{ ligne.quantite }}" required class="form-control" style="width: 100px; display: inline;">
-                    <button type="submit" class="btn btn-sm btn-warning">Modifier</button>
-                </form>
-            </td>
-            <td>
-                <a
-                    href="/empanada/{{ empanada.idEmpanada }}/deleteIngredient/{{ ligne.idComposition }}"
-                    title="Supprimer cet ingrédient"
-                    class="me-2"
-                >
+                <a href="/empanada/{{ empanada.idEmpanada }}/deleteIngredient/{{ ligne.idComposition }}" title="Supprimer cet ingrédient" class="me-2">
                     <i class="bi bi-trash"></i>
                 </a>
             </td>
-            
+            {% else %}
+            <td>{{ ligne.nomIngredient }}</td>
+            <td>{{ ligne.quantite }}</td>
+            <td></td>
+            {% endif %}
         </tr>
-        {% endfor %} {% else %}
+        {% endfor %}
+        {% else %}
         <tr>
-            <td colspan="3">Ingrédient non renseigné pour cet empanada.</td>
+            <td></td>
+            <td>Ingrédient non renseigné pour cet empanada.</td>
+            <td></td>
         </tr>
         {% endif %}
     </tbody>
 </table>
 <br>
+{% if user.is_staff %}
 <h2>Ajouter un ingrédient à la recette</h2>
 <form action="/empanada/{{ empanada.idEmpanada }}/addIngredient" method="post">
     {% csrf_token %}
     <div class="m-3">
         <label for="id_ingredient" class="form-label">Ingrédient</label>
-        <select
-            id="id_ingredient"
-            name="ingredient"
-            class="form-select"
-            required
-        >
+        <select id="id_ingredient" name="ingredient" class="form-select" required>
             <option selected disabled>Choisissez</option>
             {% for ingr in all_ingredients %}
-            <option value="{{ ingr.idIngredient }}">
-                {{ ingr.nomIngredient }}
-            </option>
+            <option value="{{ ingr.idIngredient }}">{{ ingr.nomIngredient }}</option>
             {% endfor %}
         </select>
     </div>
     <div class="m-3">
         <label for="id_quantite" class="form-label">Quantité</label>
-        <input
-            id="id_quantite"
-            name="quantite"
-            type="text"
-            maxlength="100"
-            required
-            class="form-control"
-        />
+        <input id="id_quantite" name="quantite" type="text" maxlength="100" required class="form-control" />
     </div>
     <button type="submit" class="btn btn-primary">Envoyer</button>
 </form>
+{% endif %}
 {% endblock %}
