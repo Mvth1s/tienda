@@ -6,14 +6,19 @@ from empanadas.forms import IngredientForm
 from empanadas.forms import EmpanadaForm
 from empanadas.forms import CompositionForm
 from django.contrib.auth.models import User
+from comptes.models import TiendaUser
 
 
 def empanadas(request):
+    user = None
+    if request.user.is_authenticated:
+        user = TiendaUser.objects.get(id = request.user.id)
     lesEmpanadas = Empanada.objects.all()
     return render(
         request,
         'empanadas/empanadas.html',
-        {'empanadas' : lesEmpanadas}
+        {'empanadas' : lesEmpanadas,
+        'user': user,}
     )
 
 def ingredients(request):
