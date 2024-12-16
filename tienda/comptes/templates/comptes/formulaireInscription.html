@@ -1,0 +1,60 @@
+{% extends 'empanadas/base.html' %}
+
+{% block title %}inscription{% endblock %}
+
+{% block main %}
+<h2>Renseignement d'inscription</h2>
+<form id="form_register" method="post" enctype="multipart/form-data" action="/inscription/">
+    {% csrf_token %}
+    <div class="m-3">
+        <label for="id_username" class="form-label">identifiant</label>
+        <input
+            id="id_username"
+            type="text"
+            name="username"
+            class="form-control"/>
+    </div>
+    <div class="m-3">
+        <label for="id_firstname" class="form-label">prénom</label>
+        <input
+            id="id_firstname"
+            type="text"
+            name="first_name"
+            class="form-control"/>
+    </div>
+    <div class="m-3">
+        <label for="id_lastname" class="form-label">nom</label>
+        <input
+            id="id_lastname"
+            type="text"
+            name="last_name"
+            class="form-control"/>
+    </div>
+    <div class="m-3">
+        <label for="email" class="form-label">email</label>
+        <input
+            id="id_email"
+            type="email"
+            name="email"
+            class="form-control"/>
+    </div>
+    <div class="m-3">
+        <label for="id_password" class="form-label">mot de passe</label>
+        <input
+            id="id_password"
+            type="password"
+            name="password"
+            class="form-control"/>
+    </div>
+    <div class="m-3">
+        <label for="id_image" class="form-label">photo</label>
+        <input
+            id="id_image"
+            type="file"
+            accept="image/*"
+            name="image"
+            class="form-control"/>
+    </div>
+    <button type="submit" class="btn btn-primary">s'inscrire</button>
+</form>
+{% endblock %}
